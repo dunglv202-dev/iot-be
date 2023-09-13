@@ -1,5 +1,7 @@
 package edu.ptit.iot.config;
 
+import edu.ptit.iot.model.MqttMessageHandler;
+import lombok.RequiredArgsConstructor;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +18,10 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 
 @Configuration
+@RequiredArgsConstructor
 public class MqttConfig {
+    private final MqttMessageHandler mqttMessageHandler;
+
     @Bean
     public MqttConnectOptions mqttConnectOptions() {
         MqttConnectOptions options = new MqttConnectOptions();
@@ -43,7 +48,8 @@ public class MqttConfig {
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
             MqttAsyncClient.generateClientId(),
             mqttClientFactory(),
-            "esp8266/led"
+            "esp8266/led",
+            "esp8266/dht"
         );
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
@@ -55,7 +61,7 @@ public class MqttConfig {
     @Bean
     @ServiceActivator(inputChannel = "mqttInputChannel")
     public MessageHandler mqttInbound() {
-        return message -> System.out.println("Message received: " + message.getPayload());
+        return mqttMessageHandler;
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package edu.ptit.iot.service;
+package edu.ptit.iot.model;
 
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.mqtt.support.MqttHeaders;

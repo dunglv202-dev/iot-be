@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/devices/{deviceId}")
 @RequiredArgsConstructor
+@CrossOrigin
 public class DeviceController {
     private final MqttGateway mqttGateway;
 

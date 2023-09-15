@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/iot?createDatabaseIfNotExist=true
+    username: debian-sys-maint
+    password: UkByx0WQP587Zcig
+  jpa:
+    generate-ddl: true
+    show-sql: true

@@ -28,7 +28,7 @@ public class DeviceController {
             ActionHistory.builder()
                 .actionType(actionType)
                 .timestamp(LocalDateTime.now())
-                .details(actionType + " for " + deviceId)
+                .detail(actionType + deviceId)
                 .build()
         );
     }

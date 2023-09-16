@@ -12,6 +12,7 @@ import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Component
@@ -31,6 +32,7 @@ public class MqttMessageHandler implements MessageHandler {
                     SensorDataDTO.class
                 );
                 sensorDataDTO.setLighting(new Random().nextFloat() * 50 + 100);
+                sensorDataDTO.setTimestamp(LocalDateTime.now());
                 messagingTemplate.convertAndSend("/topic/dht", sensorDataDTO);
                 sensorDataRepository.save(sensorDataDTO.toModel());
             } catch (JsonProcessingException e) {

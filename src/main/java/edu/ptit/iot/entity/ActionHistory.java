@@ -20,6 +20,6 @@ public class ActionHistory {
     private Long id;
     @Enumerated(EnumType.ORDINAL)
     private ActionType actionType;
-    private String details;
+    private String detail;
     private LocalDateTime timestamp;
 }

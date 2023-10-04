@@ -31,7 +31,7 @@ public class MqttMessageHandler implements MessageHandler {
                     message.getPayload().toString(),
                     SensorDataDTO.class
                 );
-                sensorDataDTO.setLighting(new Random().nextFloat() * 50 + 100);
+                sensorDataDTO.setLighting(new Random().nextFloat() * 10 + 120);
                 sensorDataDTO.setTimestamp(LocalDateTime.now());
                 messagingTemplate.convertAndSend("/topic/dht", sensorDataDTO);
                 sensorDataRepository.save(sensorDataDTO.toModel());

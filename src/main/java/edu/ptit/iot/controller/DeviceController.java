@@ -26,9 +26,9 @@ public class DeviceController {
         mqttGateway.sendToMqtt(action, "esp8266/" + deviceId);
         actionHistoryRepository.save(
             ActionHistory.builder()
+                .deviceId(deviceId)
                 .actionType(actionType)
                 .timestamp(LocalDateTime.now())
-                .detail(actionType + deviceId)
                 .build()
         );
     }

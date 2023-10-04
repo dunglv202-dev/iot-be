@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class ActionHistoryDTO {
-    private LocalDateTime timestamp;
+    private String deviceId;
     private ActionType actionType;
-    private String detail;
+    private LocalDateTime timestamp;
 
     public static ActionHistoryDTO fromModel(ActionHistory actionHistory) {
         return ActionHistoryDTO.builder()
-            .timestamp(actionHistory.getTimestamp())
+            .deviceId(actionHistory.getDeviceId())
             .actionType(actionHistory.getActionType())
-            .detail(actionHistory.getDetail())
+            .timestamp(actionHistory.getTimestamp())
             .build();
     }
 }

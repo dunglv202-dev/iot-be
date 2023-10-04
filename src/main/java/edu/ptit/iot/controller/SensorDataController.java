@@ -1,6 +1,8 @@
 package edu.ptit.iot.controller;
 
+import edu.ptit.iot.dto.Page;
 import edu.ptit.iot.dto.SensorDataDTO;
+import edu.ptit.iot.model.Pagination;
 import edu.ptit.iot.repository.SensorDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +22,15 @@ public class SensorDataController {
     private final SensorDataRepository sensorDataRepository;
 
     @GetMapping("/history")
-    public List<SensorDataDTO> getSensorHistory() {
-        return sensorDataRepository.findAll(PageRequest.of(
-            0,
-            20,
+    public Page<SensorDataDTO> getSensorHistory(Pagination pagination) {
+        var sensorData = sensorDataRepository.findAll(PageRequest.of(
+            pagination.getPage(),
+            pagination.getSize(),
             Sort.by(Sort.Direction.DESC, "timestamp")
-        )).stream().map(SensorDataDTO::fromModel).toList();
+        ));
+        return Page.<SensorDataDTO>builder()
+            .totalPage(sensorData.getTotalPages())
+            .data(sensorData.stream().map(SensorDataDTO::fromModel).toList())
+            .build();
     }
 }

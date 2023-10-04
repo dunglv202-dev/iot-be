@@ -1,6 +1,8 @@
 package edu.ptit.iot.controller;
 
 import edu.ptit.iot.dto.ActionHistoryDTO;
+import edu.ptit.iot.dto.Page;
+import edu.ptit.iot.model.Pagination;
 import edu.ptit.iot.repository.ActionHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +22,15 @@ public class ActionHistoryController {
     private final ActionHistoryRepository actionHistoryRepository;
 
     @GetMapping("/history")
-    public List<ActionHistoryDTO> getListActionHistory() {
-        return actionHistoryRepository.findAll(PageRequest.of(
-            0,
-            20,
+    public Page<ActionHistoryDTO> getListActionHistory(Pagination pagination) {
+        var actionHistories = actionHistoryRepository.findAll(PageRequest.of(
+            pagination.getPage(),
+            pagination.getSize(),
             Sort.by(Sort.Direction.DESC, "timestamp")
-        )).stream().map(ActionHistoryDTO::fromModel).toList();
+        ));
+        return Page.<ActionHistoryDTO>builder()
+            .totalPage(actionHistories.getTotalPages())
+            .data(actionHistories.stream().map(ActionHistoryDTO::fromModel).toList())
+            .build();
     }
 }

@@ -18,8 +18,8 @@ public class ActionHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String deviceId;
     @Enumerated(EnumType.ORDINAL)
     private ActionType actionType;
-    private String detail;
     private LocalDateTime timestamp;
 }

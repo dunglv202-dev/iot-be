@@ -23,5 +23,6 @@ public class SensorData {
     private Float temperature;
     private Float humidity;
     private Float lighting;
+    private Float dustLevel;
     private LocalDateTime timestamp;
 }

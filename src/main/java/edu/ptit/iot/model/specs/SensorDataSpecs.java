@@ -14,4 +14,6 @@ public class SensorDataSpecs {
     private Float maxTemp;
     private Float minHud;
     private Float maxHud;
+    private Float minLight;
+    private Float maxLight;
 }

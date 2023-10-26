@@ -27,7 +27,8 @@ public class SensorDataController {
         var sensorData = sensorDataRepository.findAll(
             attributeInRange("timestamp", specs.getFrom(), specs.getTo())
                 .and(attributeInRange("temperature", specs.getMinTemp(), specs.getMaxTemp()))
-                .and(attributeInRange("humidity", specs.getMinHud(), specs.getMaxHud())),
+                .and(attributeInRange("humidity", specs.getMinHud(), specs.getMaxHud()))
+                .and(attributeInRange("lighting", specs.getMinLight(), specs.getMaxLight())),
             PageRequest.of(
                 pagination.getPage(),
                 pagination.getSize(),

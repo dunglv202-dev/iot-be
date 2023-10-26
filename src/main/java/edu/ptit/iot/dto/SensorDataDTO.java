@@ -14,6 +14,7 @@ public class SensorDataDTO {
     private Float temperature;
     private Float humidity;
     private Float lighting;
+    private Float dustLevel;
     private LocalDateTime timestamp;
 
     public SensorData toModel() {
@@ -22,6 +23,7 @@ public class SensorDataDTO {
             .humidity(this.humidity)
             .lighting(this.lighting)
             .timestamp(this.timestamp)
+            .dustLevel(this.dustLevel)
             .build();
     }
 
@@ -31,6 +33,7 @@ public class SensorDataDTO {
             .humidity(sensorData.getHumidity())
             .lighting(sensorData.getLighting())
             .timestamp(sensorData.getTimestamp())
+            .dustLevel(sensorData.getDustLevel())
             .build();
     }
 }

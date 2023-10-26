@@ -48,8 +48,10 @@ public class MqttConfig {
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
             MqttAsyncClient.generateClientId(),
             mqttClientFactory(),
-            "esp8266/led",
-            "esp8266/dht"
+            "esp8266/dht",
+            "esp8266/led/state",
+            "esp8266/fan/state",
+            "esp8266/warning_led/state"
         );
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ptit.iot.dto.SensorDataDTO;
 import edu.ptit.iot.repository.SensorDataRepository;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.Message;
@@ -31,13 +32,15 @@ public class MqttMessageHandler implements MessageHandler {
                     message.getPayload().toString(),
                     SensorDataDTO.class
                 );
-                sensorDataDTO.setLighting(new Random().nextFloat() * 10 + 120);
+//                sensorDataDTO.setLighting(new Random().nextFloat() * 10 + 120);
                 sensorDataDTO.setTimestamp(LocalDateTime.now());
                 messagingTemplate.convertAndSend("/topic/dht", sensorDataDTO);
                 sensorDataRepository.save(sensorDataDTO.toModel());
             } catch (JsonProcessingException e) {
                 throw new RuntimeException("Unable to convert MQTT message", e);
             }
+        } else if (StringUtils.isNotBlank(topic) && topic.endsWith("state")) {
+            messagingTemplate.convertAndSend("/topic/" + topic, message.getPayload().toString());
         }
     }
 }
